@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="page-shell">
+  <aside class="sidebar card">
+    <div>
+      <div class="brand-mark">⚡</div>
+      <p class="eyebrow">Real-Time · Flask + Socket.IO</p>
+      <h1>{{ app_name }}</h1>
+      <p class="muted intro-copy">
+        A polished multi-room chat experience with persistent history, live users,
+        and a clean developer-friendly codebase.
+      </p>
+    </div>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <h2>Rooms</h2>
+        <button id="new-room-button" class="ghost-button" type="button">+ New</button>
+      </div>
+      <div id="room-list" class="room-list"></div>
+    </section>
+
+    <section class="panel panel-small">
+      <div class="panel-heading">
+        <h2>Online Now</h2>
+        <span id="online-count" class="pill">0</span>
+      </div>
+      <ul id="user-list" class="user-list"></ul>
+    </section>
+  </aside>
+
+  <main class="chat-layout card">
+    <header class="chat-header">
+      <div>
+        <p class="eyebrow">Current Room</p>
+        <h2 id="active-room-label">#general</h2>
+      </div>
+      <div class="status-wrap">
+        <span class="status-dot"></span>
+        <span>Live</span>
+      </div>
+    </header>
+
+    <section id="message-board" class="message-board" aria-live="polite"></section>
+
+    <footer class="composer-wrap">
+      <div id="typing-state" class="typing-state">Ready to chat.</div>
+      <form id="message-form" class="message-form">
+        <input id="message-input" name="message" type="text" autocomplete="off"
+               maxlength="{{ max_message_length }}" placeholder="Send a message to the room...">
+        <button type="submit" class="primary-button">Send</button>
+      </form>
+    </footer>
+  </main>
+</div>
+
+<div id="join-modal" class="modal-backdrop">
+  <div class="modal card">
+    <div class="modal-badge">Launch Room</div>
+    <h2>Join {{ app_name }}</h2>
+    <p class="muted">Choose a display name and jump into a room.</p>
+
+    <form id="join-form" class="join-form">
+      <label>
+        Display Name
+        <input id="username-input" type="text" maxlength="{{ max_username_length }}" placeholder="Riya">
+      </label>
+
+      <label>
+        Select Room
+        <select id="room-select"></select>
+      </label>
+
+      <button type="submit" class="primary-button full-width">Enter Chat</button>
+      <p id="join-error" class="error-text" role="alert"></p>
+    </form>
+  </div>
+</div>
+{% endblock %}
